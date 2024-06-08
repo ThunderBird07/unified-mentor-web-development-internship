@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background: darkcyan;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+main {
+    flex: 3;
+    background: coral;
+    color: azure;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+aside {
+    flex: 1;
+    background: chocolate;
+    color: azure;
+    padding: 20px;
+}
+
+footer {
+    background: crimson;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
