@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple HTML and JS Example</title>
+</head>
+<body>
+
+<h1>JavaScript Basics</h1>
+
+<p id="demo"></p>
+
+<script>
+var userName = "Vikas"; 
+var userAge = 25; 
+var isMember = true; 
+
+function displayUserInfo(name, age, memberStatus) {
+  var membershipStatus = memberStatus ? "a member" : "not a member";
+  return name + " is " + age + " years old and is " + membershipStatus + ".";
+}
+
+document.getElementById("demo").innerHTML = displayUserInfo(userName, userAge, isMember);
+</script>
+
+</body>
+</html>
