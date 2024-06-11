@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Control Flow</title>
+</head>
+<body>
+
+<h2>JavaScript Control Flow Example</h2>
+
+<p id="demo"></p>
+
+<script>
+var x = 10;
+var y = 20;
+if (x < y) {
+    document.getElementById("demo").innerHTML = "x is less than y.";
+} else {
+    document.getElementById("demo").innerHTML = "x is not less than y.";
+}
+
+var text = "";
+for (var i = 0; i < 5; i++) {
+    text += "The number is " + i + "<br>";
+}
+
+document.getElementById("demo").innerHTML += "<p>" + text + "</p>";
+</script>
+
+</body>
+</html>
