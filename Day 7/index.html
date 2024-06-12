@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Concepts</title>
+</head>
+<body>
+    <h1>JavaScript Concepts</h1>
+    <h3>Open inspector to see output log in console</h3>
+
+    <div id="functionExample"></div>
+    <script>
+        function greet(name) {
+            console.log(`Hello, ${name}!`);
+            document.getElementById("functionExample").textContent = `Output: Hello, ${name}!`;
+        }
+        greet("Vikas");
+    </script>
+
+    <div id="scopeExample"></div>
+    <script>
+        const globalVar = "I'm global!"; 
+
+        function myFunction() {
+            const localVar = "I'm local!"; 
+            console.log(globalVar);
+            console.log(localVar);
+            document.getElementById("scopeExample").textContent = `Global Variable: ${globalVar} \n Local Variable: ${localVar}`;
+        }
+
+        myFunction();
+    </script>
+
+    <div id="closureExample"></div>
+    <script>
+        function outerFunction() {
+            const outer = "I see the outer variable!";
+            function innerFunction() {
+                console.log(outer);
+                document.getElementById("closureExample").textContent = `Closure Output: ${outer}`;
+            }
+            return innerFunction;
+        }
+
+        const myClosure = outerFunction();
+        myClosure();
+    </script>
+</body>
+</html>
