@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redux Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Unified Mentor Task: Redux Example</h1>
+        <div>
+            <label for="usernameInput">Username:</label>
+            <input type="text" id="usernameInput">
+        </div>
+        <div>
+            <label for="emailInput">Email:</label>
+            <input type="email" id="emailInput">
+        </div>
+        <button id="saveBtn">Save</button>
+        <div>
+            <h2>User Information:</h2>
+            <p><strong>Username:</strong> <span id="displayUsername"></span></p>
+            <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const { createStore } = Redux;
+
+        const initialState = {
+            username: '',
+            email: ''
+        };
+
+        const userReducer = (state = initialState, action) => {
+            switch (action.type) {
+                case 'SET_USERNAME':
+                    return { ...state, username: action.payload };
+                case 'SET_EMAIL':
+                    return { ...state, email: action.payload };
+                default:
+                    return state;
+            }
+        };
+
+        const store = createStore(userReducer);
+
+        const render = () => {
+            const { username, email } = store.getState();
+            document.getElementById('displayUsername').textContent = username;
+            document.getElementById('displayEmail').textContent = email;
+        };
+
+        render();
+
+        store.subscribe(render);
+
+        document.getElementById('saveBtn').addEventListener('click', () => {
+            const usernameInput = document.getElementById('usernameInput').value;
+            const emailInput = document.getElementById('emailInput').value;
+
+            store.dispatch({ type: 'SET_USERNAME', payload: usernameInput });
+            store.dispatch({ type: 'SET_EMAIL', payload: emailInput });
+        });
+    </script>
+</body>
+</html>

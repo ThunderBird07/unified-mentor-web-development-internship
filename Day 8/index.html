@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronous JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #output {
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Asynchronous JavaScript: Callbacks and Promises</h1>
+    <p>We can use developer console to view the output, which is the same as below</p>
+    <div id="output"></div>
+
+    <script>
+        const outputElement = document.getElementById('output');
+
+        function logOutput(message) {
+            console.log(message);
+            outputElement.textContent += message + '\n';
+        }
+
+        function fetchDataCallback(callback) {
+            setTimeout(() => {
+                const data = "Data fetched using callback";
+                callback(data);
+            }, 1000);
+        }
+
+        fetchDataCallback((data) => {
+            logOutput(`Callback: ${data}`);
+        });
+
+        function fetchDataPromise() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const data = "Data fetched using promise";
+                    resolve(data);
+                }, 1000);
+            });
+        }
+
+        fetchDataPromise().then((data) => {
+            logOutput(`Promise: ${data}`);
+        });
+
+        async function fetchDataAsync() {
+            const data = await fetchDataPromise();
+            logOutput(`Async/Await: ${data}`);
+        }
+
+        fetchDataAsync();
+    </script>
+</body>
+</html>

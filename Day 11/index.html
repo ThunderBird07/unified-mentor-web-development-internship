@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object-Oriented JavaScript Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #output {
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unified Mentor task: Object-Oriented JavaScript Example</h1>
+    <p>We can use developer console to view the output, which is the same as below</p>
+    <div id="output"></div>
+
+    <script>
+        const outputElement = document.getElementById('output');
+
+        function logOutput(message) {
+            console.log(message);
+            outputElement.textContent += message + '\n';
+        }
+
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            greet() {
+                return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, age, grade) {
+                super(name, age);
+                this.grade = grade;
+            }
+
+            study() {
+                return `${this.name} is studying and is in grade ${this.grade}.`;
+            }
+        }
+
+        const person = new Person('Vikas', 20);
+        logOutput(person.greet());
+
+        const student = new Student('Tarun Raghav', 20, 'Computer Science');
+        logOutput(student.greet());
+        logOutput(student.study());
+
+    </script>
+</body>
+</html>

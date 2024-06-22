@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises, Async/Await, and Error Handling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #output {
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unified Mentor Task: Promises, Async/Await, and Error Handling Example</h1>
+    <p>We can use developer console to view the output, which is the same as below</p>
+    <div id="output"></div>
+
+    <script>
+        const outputElement = document.getElementById('output');
+
+        function logOutput(message) {
+            console.log(message);
+            outputElement.textContent += message + '\n';
+        }
+
+        function fetchDataPromise(success = true) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (success) {
+                        resolve("Data fetched successfully with Promise.");
+                    } else {
+                        reject("Error fetching data with Promise.");
+                    }
+                }, 1000);
+            });
+        }
+
+        fetchDataPromise(true)
+            .then(data => logOutput(`Promise resolved: ${data}`))
+            .catch(error => logOutput(`Promise rejected: ${error}`));
+
+        fetchDataPromise(false)
+            .then(data => logOutput(`Promise resolved: ${data}`))
+            .catch(error => logOutput(`Promise rejected: ${error}`));
+
+        async function fetchDataAsync(success = true) {
+            try {
+                const data = await fetchDataPromise(success);
+                logOutput(`Async/Await resolved: ${data}`);
+            } catch (error) {
+                logOutput(`Async/Await caught an error: ${error}`);
+            }
+        }
+
+        fetchDataAsync(true);
+        fetchDataAsync(false);
+
+    </script>
+</body>
+</html>

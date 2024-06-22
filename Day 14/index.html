@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #root {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unified Mentor Task: Build a more complex React application.</h1>
+    <p>A To-do list app created with React</p><br><br>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        function TodoItem({ todo, toggleTodo }) {
+            return (
+                <li
+                    onClick={toggleTodo}
+                    className={todo.completed ? 'completed' : ''}
+                >
+                    {todo.text}
+                </li>
+            );
+        }
+
+        function TodoList({ todos, toggleTodo }) {
+            return (
+                <ul>
+                    {todos.map((todo, index) => (
+                        <TodoItem
+                            key={index}
+                            todo={todo}
+                            toggleTodo={() => toggleTodo(index)}
+                        />
+                    ))}
+                </ul>
+            );
+        }
+
+        function App() {
+            const [todos, setTodos] = React.useState([]);
+            const [inputValue, setInputValue] = React.useState('');
+
+            const addTodo = () => {
+                if (inputValue.trim()) {
+                    setTodos([...todos, { text: inputValue, completed: false }]);
+                    setInputValue('');
+                }
+            };
+
+            const toggleTodo = index => {
+                const newTodos = [...todos];
+                newTodos[index].completed = !newTodos[index].completed;
+                setTodos(newTodos);
+            };
+
+            return (
+                <div>
+                    <h1>Todo List</h1>
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={e => setInputValue(e.target.value)}
+                        placeholder="Add a new todo"
+                    />
+                    <button onClick={addTodo}>Add</button>
+                    <TodoList todos={todos} toggleTodo={toggleTodo} />
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header, nav, main, footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        nav {
+            background-color: #f4f4f4;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .box {
+            background-color: #ddd;
+            margin: 10px;
+            padding: 20px;
+            flex: 1 1 300px;
+            box-sizing: border-box;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Unified Mentor task: Responsive Website</h1>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="box">
+                <h2>Box 1</h2>
+                <p>This is some text inside a flexbox item. Resize the window to see how it responds.</p>
+            </div>
+            <div class="box">
+                <h2>Box 2</h2>
+                <p>This is some text inside a flexbox item. Resize the window to see how it responds.</p>
+            </div>
+            <div class="box">
+                <h2>Box 3</h2>
+                <p>This is some text inside a flexbox item. Resize the window to see how it responds.</p>
+            </div>
+        </div>
+        <img src="data:image/jpeg;base64,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" alt="Responsive Image">
+    </main>
+    <footer>
+        <p>2024 Responsive Website Example.</p>
+    </footer>
+</body>
+</html>
