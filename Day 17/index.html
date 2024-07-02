@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Counter Component</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+    <h1>Unified Mentor task:</h1>
+    <h2>Create a simple Vue Component</h2><br>
+    <p>Simple counter made using Vue.js</p>
+  <div id="app">
+    <counter></counter>
+  </div>
+
+  <script>
+    Vue.component('counter', {
+      data: function() {
+        return {
+          count: 0
+        }
+      },
+      template: `
+        <div>
+          <p>{{ count }}</p>
+          <button @click="count++">Increment</button>
+          <button @click="count--">Decrement</button>
+        </div>
+      `
+    });
+
+    new Vue({
+      el: '#app'
+    });
+  </script>
+</body>
+</html>

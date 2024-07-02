@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue App with Router and Vuex</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuex@3"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    #app {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    nav {
+      margin-bottom: 20px;
+    }
+    nav a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #007bff;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    h2 {
+      color: #007bff;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view></router-view>
+  </div>
+
+  <script>
+    const Home = {
+      template: '<div><h2>Counter Program:</h2><counter></counter></div>'
+    };
+
+    const About = {
+      template: '<div><h2>About</h2><p>Made for Unified Mentor task: Vue Router and State Management</p></div>'
+    };
+
+    Vue.component('counter', {
+      computed: {
+        count() {
+          return this.$store.state.count;
+        }
+      },
+      methods: {
+        increment() {
+          this.$store.commit('increment');
+        },
+        decrement() {
+          this.$store.commit('decrement');
+        }
+      },
+      template: `
+        <div>
+          <p>{{ count }}</p>
+          <button @click="increment">Increment</button>
+          <button @click="decrement">Decrement</button>
+        </div>
+      `
+    });
+
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        increment(state) {
+          state.count++;
+        },
+        decrement(state) {
+          state.count--;
+        }
+      }
+    });
+
+    const router = new VueRouter({
+      routes: [
+        { path: '/', component: Home },
+        { path: '/about', component: About }
+      ]
+    });
+
+    new Vue({
+      el: '#app',
+      router,
+      store
+    });
+  </script>
+</body>
+</html>
