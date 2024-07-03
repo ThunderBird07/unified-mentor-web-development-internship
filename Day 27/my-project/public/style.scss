@@ -1,0 +1,16 @@
+$sass-color: #3498db;
+
+.sass-example {
+    background-color: lighten($sass-color, 20%);
+    color: darken($sass-color, 20%);
+    padding: 20px;
+    border-radius: 5px;
+
+    h1 {
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+}

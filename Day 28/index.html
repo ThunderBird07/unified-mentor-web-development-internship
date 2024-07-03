@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animations and Transitions</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        h1, p {
+            text-align: center;
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        }
+
+        .box:hover {
+            transform: translateX(150px) rotate(45deg);
+            background-color: #e74c3c;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                background-color: #3498db;
+            }
+            50% {
+                transform: scale(1.1);
+                background-color: #2980b9;
+            }
+            100% {
+                transform: scale(1);
+                background-color: #3498db;
+            }
+        }
+
+        .animated-box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            animation: pulse 2s infinite;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unified Mentor Task: Animate CSS</h1>
+    <p>Left box has hover animation and right box has blinking animation</p><br><br>
+    <div class="container">
+        <div class="box"></div>
+        <div class="animated-box"></div>
+    </div>
+</body>
+</html>
