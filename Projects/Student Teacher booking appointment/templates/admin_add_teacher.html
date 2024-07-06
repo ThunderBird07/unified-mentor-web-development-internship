@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <title>Add Teacher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Add Teacher</h1>
+        <form id="add-teacher-form" action="/add_teacher" method="post">
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="text" id="department" name="department" placeholder="Department" required>
+            <input type="text" id="subject" name="subject" placeholder="Subject" required><br>
+            <button type="submit">Add Teacher</button>
+        </form><br>
+        <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,349 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #191c24;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+}
+
+a {
+    color: #00aaff; /* Electric Blue */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Headers */
+h1, h2 {
+    color: #ffffff; /* Dark Gray */
+    margin: 0;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    background-color: #1c4e80; 
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    max-width: 1200px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Enable scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh; /* Set specific height for scrolling */
+    position: relative; /* Ensure correct positioning */
+}
+
+/* Hide scrollbars but keep scrolling */
+.dashboard-container::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* Hides the scrollbar */
+}
+
+.dashboard-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Container for Forms */
+.container {
+    height: auto; /* Adjust height as needed */
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form Container */
+.form-container {
+    background-color: #1c4e80; /* White */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+/* Form Container Active States */
+.form-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.form-container.login-form {
+    transform: translateX(-100%);
+}
+
+.form-container.register-form {
+    transform: translateX(100%);
+}
+
+.form-container.active.login-form {
+    transform: translateX(0);
+}
+
+.form-container.active.register-form {
+    transform: translateX(0);
+}
+
+/* Input Fields */
+input, select, textarea {
+    width: 50vw;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #444; /* Dark Gray */
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #00ff00; /* Neon Green */
+    outline: none;
+}
+
+/* Buttons */
+button {
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #00aaff; /* Electric Blue */
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #0077cc; /* Darker Electric Blue */
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* List Items */
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+li {
+    background-color: #ea6a47; 
+    color: white;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+li:hover {
+    background-color: #333;
+    color: #ea6a47;
+    transform: scale(1.02);
+}
+
+/* Logout Button */
+#logout {
+    background-color: #00aaff; /* Electric Blue */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#logout:hover {
+    background-color: #0077cc; /* Darker Electric Blue */
+}
+
+#logout:active {
+    transform: scale(0.98);
+}
+
+/* Navigation Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.header nav ul li a {
+    text-decoration: none;
+    color: #00aaff; /* Electric Blue */
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.header nav ul li a:hover {
+    color: #0077cc; /* Darker Electric Blue */
+}
+
+/* Main Content Styles */
+.main-content {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+.section {
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #EA6A47; 
+}
+
+.table thead {
+    background-color: #f8f9fa; 
+    color: #333; 
+}
+
+.table th, .table td {
+    padding: 12px; 
+    border: 1px solid #e0e0e0; 
+    text-align: left;
+}
+
+.table th {
+    background-color: #dbae58; 
+    font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; 
+}
+
+.table tbody tr:hover {
+    background-color: #AC3E31; 
+} 
+
+/* Buttons for Table Actions */
+.btn {
+    padding: 8px 12px; /* Adjusted padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 14px; /* Adjusted font size for button text */
+}
+
+.btn-approve {
+    background-color: #28a745; /* Green for approve */
+    color: #fff;
+}
+
+.btn-approve:hover {
+    background-color: #218838; /* Darker Green on hover */
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Red for delete */
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background-color: #c82333; /* Darker Red on hover */
+}
+
+.btn-update {
+    background-color: #ffc107; /* Yellow for update */
+    color: #212529;
+}
+
+.btn-update:hover {
+    background-color: #e0a800; /* Darker Yellow on hover */
+}
+
+/* Flash Messages */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.flash-messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.flash-messages .error {
+    background-color: #f44336; /* Red */
+}
+
+.flash-messages .warning {
+    background-color: #ff9800; /* Orange */
+}
+
+.flash-messages .info {
+    background-color: #2196f3; /* Blue */
+}
+
+.flash-messages .success {
+    background-color: #4caf50; /* Green */
+}
+
+.link-button {
+    padding: 1%;
+    background-color: #0077cc;
+    text-decoration: none;
+    color: white;
+}
+
+.dashboard-container form {
+    text-align: center;
+}

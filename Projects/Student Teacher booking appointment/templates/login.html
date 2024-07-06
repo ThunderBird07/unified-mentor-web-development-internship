@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container" style="text-align: center;">
+        <div class="form-container active" id="login">
+            <h1>Login</h1>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <ul class="flash-messages">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <form id="login-form" action="/login" method="post">
+                <input type="email" id="email" name="email" placeholder="Email" required style="width: 100%;">
+                <input type="password" id="password" name="password" placeholder="Password" required style="width: 100%;">
+                <button type="submit">Login</button>
+                <p style="color: white;">Don't have an account? <a href="#" id="show-register" style="color: #ea6a47;">Register</a></p>
+            </form>
+        </div>
+
+        <div class="form-container" id="register">
+            <h1>Register</h1>
+            <form id="register-form" action="/register" method="post">
+                <input type="email" id="reg-email" name="email" placeholder="Email" required style="width: 100%;">
+                <input type="password" id="reg-password" name="password" placeholder="Password" required style="width: 100%;">
+                <button type="submit">Register</button>
+                <p style="color: white;">Already have an account? <a href="#" id="show-login" style="color: #ea6a47;">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle between login and register forms
+        document.getElementById('show-register').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('login').classList.remove('active');
+            document.getElementById('register').classList.add('active');
+        });
+
+        document.getElementById('show-login').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('register').classList.remove('active');
+            document.getElementById('login').classList.add('active');
+        });
+    </script>
+    <script>
+        document.getElementById('show-register').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('login').classList.remove('active');
+            document.getElementById('register').classList.add('active');
+        });
+    
+        document.getElementById('show-login').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('register').classList.remove('active');
+            document.getElementById('login').classList.add('active');
+        });
+    </script>
+    
+</body>
+</html>

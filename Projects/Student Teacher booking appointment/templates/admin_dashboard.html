@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">Admin Dashboard</h1><br><br>
+        
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Pending Students Section -->
+        <section class="pending-students">
+            <h2 class="section-title">Pending Student Registrations</h2><br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in pending_students %}
+                    <tr>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.status }}</td>
+                        <td class="actions">
+                            <form action="{{ url_for('admin_approve_student', student_id=student.email) }}" method="POST">
+                                <button type="submit" class="btn btn-approve">Approve</button>
+                            </form>
+                            <form action="{{ url_for('admin_delete_student', student_id=student.email) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                <button type="submit" class="btn btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Teachers Section -->
+        <section class="teachers">
+            <h2 class="section-title">Teachers</h2><br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Subject</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teachers %}
+                    <tr>
+                        <td>{{ teacher.name }}</td>
+                        <td>{{ teacher.department }}</td>
+                        <td>{{ teacher.subject }}</td>
+                        <td class="actions">
+                            <form action="{{ url_for('admin_delete_teacher', teacher_id=teacher.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this teacher?');">
+                                <button type="submit" class="btn btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        
+        <a href="{{ url_for('admin_add_teacher') }}" class="btn btn-add link-button">Add New Teacher</a><br>
+        <a href="{{ url_for('logout') }}" class="btn btn-logout link-button">Logout</a>
+        
+        <!-- Logout Button -->
+    </div>
+</body>
+</html>

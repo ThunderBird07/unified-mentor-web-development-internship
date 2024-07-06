@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Student Dashboard</h1><br>
+        
+        <h2>Appointments</h2>
+        <ul>
+            {% for appointment in appointments %}
+                <li>
+                    <span class="info">Teacher ID: {{ appointment.teacherId }}</span>
+                    <span class="info">Date: {{ appointment.date }}</span>
+                    <span class="info">Time: {{ appointment.time }}</span>
+                    <span class="info">Status: {{ appointment.status }}</span>
+                </li>
+            {% endfor %}
+        </ul><br>
+
+        <h2>Book an Appointment</h2>
+        <form action="{{ url_for('book_appointment') }}" method="POST">
+            <input type="hidden" name="studentId" value="{{ student_id }}">
+            <select name="teacherId" id="teacherId" required>
+                <option value="">--Select Teacher--</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+                {% else %}
+                    <option value="" disabled>No teachers available</option>
+                {% endfor %}
+            </select>
+            <input type="date" name="date" required>
+            <input type="time" name="time" required><br>
+            <button type="submit" style = "background-color: #6ab187">Book Appointment</button>
+        </form><br><br><br>
+
+        <h2>Send a Message</h2>
+        <form action="{{ url_for('send_message') }}" method="POST">
+            <input type="hidden" name="studentId" value="{{ student_id }}">
+            <select name="teacherId" id="teacherIdMessage" required>
+                <option value="">--Select Teacher--</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+                {% else %}
+                    <option value="" disabled>No teachers available</option>
+                {% endfor %}
+            </select>
+            <textarea name="content" rows="4" placeholder="Write your message here..." required></textarea><br>
+            <button type="submit" style = "background-color: #6ab187">Send Message</button>
+        </form><br>
+
+        <a id="logout" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>

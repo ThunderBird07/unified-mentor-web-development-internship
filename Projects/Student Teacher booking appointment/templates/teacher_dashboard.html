@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Teacher Dashboard</h1><br>
+        <h2>Appointments</h2>
+        <ul id="appointments-list">
+            <!-- Appointments will be dynamically inserted here -->
+        </ul>
+        <h2>Messages</h2>
+        <ul id="messages-list">
+            <!-- Messages will be dynamically inserted here -->
+        </ul>
+        <button id="logout">Logout</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js';
+        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
+        import { getFirestore, collection, query, where, getDocs, updateDoc, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: '{{ firebase_config.apiKey }}',
+            projectId: '{{ firebase_config.projectId }}',
+            authDomain: '{{ firebase_config.authDomain }}',
+            messagingSenderId: '{{ firebase_config.messagingSenderId }}',
+            storageBucket: '{{ firebase_config.storageBucket }}',
+            appId: '{{ firebase_config.appId }}'
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const teacherId = getQueryParameter('email');
+
+        async function approveAppointment(appointmentId) {
+            try {
+                await updateDoc(doc(collection(db, 'appointments'), appointmentId), {
+                    status: 'approved'
+                });
+                loadTeacherDashboard(teacherId);  // Reload the dashboard to reflect changes
+            } catch (error) {
+                console.error('Error approving appointment:', error);
+            }
+        }
+
+        async function cancelAppointment(appointmentId) {
+            try {
+                await updateDoc(doc(collection(db, 'appointments'), appointmentId), {
+                    status: 'canceled'
+                });
+                loadTeacherDashboard(teacherId);  // Reload the dashboard to reflect changes
+            } catch (error) {
+                console.error('Error canceling appointment:', error);
+            }
+        }
+
+        async function deleteAppointment(appointmentId) {
+            try {
+                await deleteDoc(doc(collection(db, 'appointments'), appointmentId));
+                loadTeacherDashboard(teacherId);  // Reload the dashboard to reflect changes
+            } catch (error) {
+                console.error('Error deleting appointment:', error);
+            }
+        }
+
+        async function deleteMessage(messageId) {
+            try {
+                await deleteDoc(doc(collection(db, 'messages'), messageId));
+                loadTeacherDashboard(teacherId);  // Reload the dashboard to reflect changes
+            } catch (error) {
+                console.error('Error deleting message:', error);
+            }
+        }
+
+        async function loadTeacherDashboard(teacherId) {
+            const appointmentsList = document.getElementById('appointments-list');
+            const messagesList = document.getElementById('messages-list');
+
+            // Clear existing content
+            appointmentsList.innerHTML = '';
+            messagesList.innerHTML = '';
+
+            try {
+                // Load appointments
+                const appointmentsSnapshot = await getDocs(query(collection(db, 'appointments'), where('teacherId', '==', teacherId)));
+                appointmentsSnapshot.forEach((doc1) => {
+                    const appointment = doc1.data();
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<span>Student ID: ${appointment.studentId}, Date: ${appointment.date}, Time: ${appointment.time}, Status: ${appointment.status}</span>
+                                          <button class="approve-btn" style="background-color: #6ab187">Approve</button>
+                                          <button class="cancel-btn" style="background-color: #dbae58">Cancel</button>
+                                          <button class="delete-btn" style="background-color: #d32d41">Delete</button>`;
+                    const approveButton = listItem.querySelector('.approve-btn');
+                    const cancelButton = listItem.querySelector('.cancel-btn');
+                    const deleteButton = listItem.querySelector('.delete-btn');
+                    approveButton.addEventListener('click', () => approveAppointment(doc1.id));
+                    cancelButton.addEventListener('click', () => cancelAppointment(doc1.id));
+                    deleteButton.addEventListener('click', () => {
+                        if (confirm('Are you sure you want to delete this appointment?')) {
+                            deleteAppointment(doc1.id);
+                        }
+                    });
+                    appointmentsList.appendChild(listItem);
+                });
+
+                // Load messages
+                const messagesSnapshot = await getDocs(query(collection(db, 'messages'), where('teacherId', '==', teacherId)));
+                messagesSnapshot.forEach((doc1) => {
+                    const message = doc1.data();
+                    const listItem = document.createElement('li');
+                    listItem.setAttribute('data-message-id', doc1.id); // Store the message ID in a data attribute
+                    listItem.innerHTML = `From: ${message.studentId}, Message: ${message.content}
+                                          <button class="delete-message" style="background-color: #d32d41">Delete</button>`;
+                    const deleteButton = listItem.querySelector('.delete-message');
+                    deleteButton.addEventListener('click', () => {
+                        if (confirm('Are you sure you want to delete this message?')) {
+                            deleteMessage(doc1.id);
+                        }
+                    });
+                    messagesList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error loading teacher dashboard:', error);
+            }
+        }
+
+        document.getElementById('logout').addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = '/';
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        });
+
+        // Call the function to load the teacher's dashboard with the appropriate teacherId
+        loadTeacherDashboard(teacherId);
+    </script>
+</body>
+</html>
